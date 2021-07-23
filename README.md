@@ -4,8 +4,7 @@
 
 ## Ch2
 ### Maria DB 補充
-- 需要先安裝並啟動
-- 建立 trainingdb
+- 確認是否有資料庫的存在 (trainingdb)
 
 ### GeneratedValue 用法
 - @GeneratedValue(strategy = GenerationType.IDENTITY) : 自增量的意思
@@ -34,3 +33,32 @@
     - [error 原因](https://stackoverflow.com/questions/44588055/spring-boot-cant-save-unicode-string-in-mysql-using-spring-data-jpa)
     - [參考](https://www.jinnsblog.com/2018/01/mariadb-garbled.html)
   
+
+## CH 3
+### log 層級
+- 在 application.properties 中設定
+  - logging.level.tw.com.softleader=DEBUG
+- 層級主要分 :
+  1. TRACE
+  2. DEBUG
+  3. INFO
+  4. WARN
+  5. ERROR
+  6. FATAL  
+- [Spring Boot-Log日誌管理篇](https://ithelp.ithome.com.tw/articles/10195479)    
+
+### WebMvcConfigurer 介紹
+- 是 Spring 內部的一種配置方式
+- 採用 JavaBean 的形式取代傳統的 xml 配置
+- addArgumentResolvers : 添加自定義方法參數處理器  
+- [spring的WebMvc配置](https://zhuanlan.zhihu.com/p/146167716)
+
+### ConversionService 類型轉換
+- Object 轉換成 Object
+- 進入轉換系統的入口點
+- [Spring ConversionService 类型转换](https://www.cnblogs.com/binarylei/p/10263581.html)
+- [聊聊Spring中的数据转换](https://blog.csdn.net/f641385712/article/details/90702928)
+
+### annotation
+- @Configuration : 為用 spring 的時候 xml 裡面的 <beans> 標籤
+-[@Configuration和@Bean的用法和理解](https://blog.csdn.net/u012260707/article/details/52021265)

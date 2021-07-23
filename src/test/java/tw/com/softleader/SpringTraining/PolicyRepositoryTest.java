@@ -7,6 +7,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -31,6 +35,22 @@ public class PolicyRepositoryTest {
                 .applicantLocalName("王小名")
                 .build();
         policyRepository.save(policy);
+
+        Policy policy1 = Policy.builder()
+                .policyNo("9921ABC00002")
+                .endstNo(1)
+                .applicantIdno("A123456788")
+                .applicantLocalName("王小明")
+                .build();
+        policyRepository.save(policy1);
+
+        Policy policy2 = Policy.builder()
+                .policyNo("9921ABC00003")
+                .endstNo(2)
+                .applicantIdno("A123456787")
+                .applicantLocalName("王小銘")
+                .build();
+        policyRepository.save(policy2);
     }
 
     @Test
@@ -54,4 +74,15 @@ public class PolicyRepositoryTest {
             assertEquals("王", policy.getApplicantLocalName().substring(0,1));
         }
     }
+
+    @Test
+    void testPageable(){
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("policyNo").descending());
+        Page<Policy> page = policyRepository.findAll(pageable);
+        log.debug("print page info : {}", page);
+        List<Policy> policies = page.getContent();
+        policies.stream().forEach(e -> log.debug("print each policy {}", e));
+    }
+
+
 }
