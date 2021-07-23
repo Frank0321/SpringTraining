@@ -13,6 +13,13 @@
 - @GeneratedValue(strategy = GenerationType.TABLE) : 透過另外一個表格來定義 ID
 - [理解JPA注解@GeneratedValue](https://blog.csdn.net/canot/article/details/51455967)
 - [JPA 中 GeneratedValue 的三種策略](https://medium.com/@BalicantaYao/jpa-%E4%B8%AD-generatedvalue-%E7%9A%84%E4%B8%89%E7%A8%AE%E7%AD%96%E7%95%A5-bedebf1c076d)
+- [What use is @TestInstance annotation in JUnit 5?](https://stackoverflow.com/questions/52551718/what-use-is-testinstance-annotation-in-junit-5)
+
+### 測試方法
+- Junit 5 提供了一個 class 只初始化僅僅一次的方式 : @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+- 有 @TestInstance(TestInstance.Lifecycle.PER_CLASS) 才可以執行 @BeforeAll、@AfterAll
+
+- [Spring Boot 第一個 JUnit 測試程式](https://ithelp.ithome.com.tw/articles/10250569?sc=rss.iron)
 
 ### 問題排除
 - Q1 : Test ignored.
