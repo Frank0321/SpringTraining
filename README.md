@@ -59,6 +59,50 @@
 - [Spring ConversionService 类型转换](https://www.cnblogs.com/binarylei/p/10263581.html)
 - [聊聊Spring中的数据转换](https://blog.csdn.net/f641385712/article/details/90702928)
 
+### 補充 3.3 內容
+- 新增資料方便進行測試
+  ```java
+    @PostConstruct
+    void init(){
+        Policy policy1 = Policy.builder().policyNo("AAA").applicantLocalName("aaa").build();
+        policyRepository.save(policy1);
+
+        Policy policy2 = Policy.builder().policyNo("AAA").applicantLocalName("bbb").build();
+        policyRepository.save(policy2);
+
+        Policy policy3 = Policy.builder().policyNo("BBB").applicantLocalName("aaacc").build();
+        policyRepository.save(policy3);
+
+        Policy policy4 = Policy.builder().policyNo("CCC").applicantLocalName("ccc").build();
+        policyRepository.save(policy4);
+    }
+  ```
+  - 利用網址進行測試，分別在 @GetMapping 加上 test1，test2，然後利用網址進行測試
+    - http://localhost:8081/policy/test1?policyNo=AAA&applicantLocalName=aaa
+    - http://localhost:8081/policy/test1?policyNo=AAA
+    - http://localhost:8081/policy/test1?applicantLocalName=aaa
+    - http://localhost:8081/policy/test1
+  
+  ```sql
+  select 
+  policy0_.id as id1_0_, 
+  policy0_.applicant_idno as applican2_0_, 
+  policy0_.applicant_local_name as applican3_0_, 
+  policy0_.endst_no as endst_no4_0_, 
+  policy0_.policy_no as policy_n5_0_ 
+  from 
+  policy policy0_ 
+  where 
+  policy0_.policy_no=? 
+  and (policy0_.applicant_local_name like ?) 
+  and policy0_.endst_no=
+      (select max(policy1_.endst_no) 
+      from 
+      policy policy1_ 
+      where 
+      policy0_.policy_no=policy1_.policy_no)
+  ```
+
 ### annotation
 - @Configuration : 為用 spring 的時候 xml 裡面的 <beans> 標籤
 -[@Configuration和@Bean的用法和理解](https://blog.csdn.net/u012260707/article/details/52021265)
