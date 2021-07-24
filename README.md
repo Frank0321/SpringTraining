@@ -48,16 +48,42 @@
 - [Spring Boot-Log日誌管理篇](https://ithelp.ithome.com.tw/articles/10195479)    
 
 ### WebMvcConfigurer 介紹
-- 是 Spring 內部的一種配置方式
+- 是 Spring 內部的一種配置方式 (或是說對於 SpringMVC 進行配置)
+- 作法 : 
+  1. 配置 @Configuration
+  2. 實作 WebMvcConfigurer
 - 採用 JavaBean 的形式取代傳統的 xml 配置
-- addArgumentResolvers : 添加自定義方法參數處理器  
+- addArgumentResolvers : 添加自定義方法參數處理器 (Add resolvers to support custom controller method argument types.)
 - [spring的WebMvc配置](https://zhuanlan.zhihu.com/p/146167716)
+- [使用WebMvcConfigurer配置SpringMVC](https://blog.csdn.net/qq877728715/article/details/110678656)
 
 ### ConversionService 類型轉換
 - Object 轉換成 Object
 - 進入轉換系統的入口點
 - [Spring ConversionService 类型转换](https://www.cnblogs.com/binarylei/p/10263581.html)
 - [聊聊Spring中的数据转换](https://blog.csdn.net/f641385712/article/details/90702928)
+
+### @Spec annotation
+#### Enabling spec annotations in your Spring app
+- All you need to do is to wire SpecificationArgumentResolver into your application. 
+  Then you can use @Spec and other annotations in your controllers. 
+  SpecificationArgumentResolver implements Spring's HandlerMethodArgumentResolver and can be plugged in as follows:
+  ```java
+  @Configuration
+  @EnableJpaRepositories
+  public class MyConfig implements WebMvcConfigurer {
+  
+      @Override
+      public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+          argumentResolvers.add(new SpecificationArgumentResolver());
+      }
+      ...
+  }
+  ```
+- 用法 : 決定欄位耀怎麼比較 (Like、Equal、In 等)
+  
+- [ref](https://github.com/tkaczmarzyk/specification-arg-resolver)
+
 
 ### 補充 3.3 內容
 - 新增資料方便進行測試
@@ -76,13 +102,34 @@
         Policy policy4 = Policy.builder().policyNo("CCC").applicantLocalName("ccc").build();
         policyRepository.save(policy4);
     }
+  
+- 說明 : 
+  - test0 : 參數皆需要有輸入，才可以做查詢。 (沒有彈性空間)
+  - test1 : 否則需要使用到 if 判斷句，判斷是否有值，再決定使用哪一個方法查詢
+  - test2 : 使用 @Spec 的方式
+    - 參數可以動態新增，如果有此參數，就會用這個參數查詢。如果沒有，則不會用使用這個參數查詢
+   
   ```
   - 利用網址進行測試，分別在 @GetMapping 加上 test1，test2，然後利用網址進行測試
     - http://localhost:8081/policy/test1?policyNo=AAA&applicantLocalName=aaa
     - http://localhost:8081/policy/test1?policyNo=AAA
     - http://localhost:8081/policy/test1?applicantLocalName=aaa
     - http://localhost:8081/policy/test1
-  
+
+- JpaSpecificationExecutor<T>
+  - 使用 Specification
+    ```java
+    Specification<Policy> newSpec = 
+        (root, criteriaQuery, criteriaBuilder)->{
+        ...
+        };
+    ```
+    - root：Root接口，代表查詢的根對象，可以通過root獲取實體中的屬性
+    - query：代表一個頂層查詢對象，用來自定義查詢 
+    - cb ：用來構建查詢，此對象里有很多條件方法
+  - [ref1](https://kknews.cc/zh-tw/code/oeo6pp6.html)
+  - [ref2](https://zh.codeprj.com/blog/b1ea451.html)
+  - 程式對應的 SQL 如下
   ```sql
   select 
   policy0_.id as id1_0_, 
@@ -102,6 +149,11 @@
       where 
       policy0_.policy_no=policy1_.policy_no)
   ```
+### 3.4 存取多資料庫
+- 注意檔案目錄位置
+- gary 有在 integration 這一個 package 裡面多創一個 entity
+- [菜鳥工程師](https://matthung0807.blogspot.com/2019/09/spring-data-jpa-multiple-datasource.html)
+
 
 ### annotation
 - @Configuration : 為用 spring 的時候 xml 裡面的 <beans> 標籤

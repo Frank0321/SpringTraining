@@ -1,4 +1,4 @@
-package tw.com.softleader.SpringTraining;
+package tw.com.softleader.SpringTraining.Config;
 
 import net.kaczmarzyk.spring.data.jpa.web.SpecificationArgumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;

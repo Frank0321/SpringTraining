@@ -1,9 +1,8 @@
 package tw.com.softleader.SpringTraining;
 
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.stereotype.Repository;
+import tw.com.softleader.SpringTraining.Entity.Policy;
 
 import java.util.List;
 

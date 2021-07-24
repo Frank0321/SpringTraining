@@ -9,6 +9,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import tw.com.softleader.SpringTraining.Entity.Policy;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.criteria.Root;
@@ -40,6 +41,11 @@ public class PolicyController {
         policyRepository.save(policy5);
     }
 
+    @GetMapping("/test0")
+    public List<Policy> queryOriginal(Policy form){
+        return policyRepository.findByPolicyNoAndApplicantLocalNameLike(form.getPolicyNo(), form.getApplicantLocalName()+"%");
+    }
+
     @GetMapping("/test1")
     public List<Policy> query(Policy form){
         /**
@@ -63,6 +69,7 @@ public class PolicyController {
     public List<Policy> query(@And({
             @Spec(path = "policyNo", spec = Equal.class),
             @Spec(path = "applicantLocalName", spec = Like.class)
+//            ,@Spec(path = "endstNo", spec = Equal.class)
     })Specification<Policy> specification){
         return policyRepository.findAll(specification);
     }
@@ -83,7 +90,9 @@ public class PolicyController {
         Specification<Policy> newSpec = (Specification<Policy>) (root, criteriaQuery, criteriaBuilder) -> {
             Subquery<Long> subQuery = criteriaQuery.subquery(Long.class);
             Root<Policy> subQueryRoot = subQuery.from(Policy.class);
+            //查詢 ensarNo 最大值
             subQuery.select(criteriaBuilder.max(subQueryRoot.get("endstNo")));
+            // where 條件
             subQuery.where(criteriaBuilder.equal(root.get("policyNo"), subQueryRoot.get("policyNo")));
             return criteriaBuilder.equal(root.get("endstNo"), subQuery);
         };

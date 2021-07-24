@@ -1,4 +1,4 @@
-package tw.com.softleader.SpringTraining;
+package tw.com.softleader.SpringTraining.Entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
