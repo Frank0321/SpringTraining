@@ -59,7 +59,7 @@ public class PrimaryDataSourceConfig {
 
         return primaryEntityManagerFactoryBuilder
                 .dataSource(primaryDataSource)
-                .packages("tw.com.softleader.SpringTraining")
+                .packages("tw.com.softleader.SpringTraining.Entity")  //指到 ENtity 上一層
                 .persistenceUnit("primaryDataSource")
                 .properties(primaryJpaProperties)
                 .build();
