@@ -158,3 +158,12 @@
 ### annotation
 - @Configuration : 為用 spring 的時候 xml 裡面的 <beans> 標籤
 -[@Configuration和@Bean的用法和理解](https://blog.csdn.net/u012260707/article/details/52021265)
+  
+### bug 處理
+- IntelliJ Idea 解決 Could not autowire. No beans of 'xxxx' type found 的錯誤提示
+  - 先確定是否能正常執行，可以就可以不用管他了 ?!
+    - 加上註解 : @Autowired(required = false)
+    - 交給 Spring 管理 : 標註 @Service
+    - 調整 interlliJ 的危險等級
+  - [解決方法 1](https://www.itread01.com/content/1547060884.html)
+  - [解決方法 2](https://blog.csdn.net/Hello_World_QWP/article/details/114923905)
