@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import tw.com.softleader.SpringTraining.DAO.PolicyRepository;
 import tw.com.softleader.SpringTraining.Entity.Policy;
 
 import java.util.List;

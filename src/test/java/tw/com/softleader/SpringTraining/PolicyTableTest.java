@@ -7,6 +7,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+import tw.com.softleader.SpringTraining.DAO.PolicyRepository;
 import tw.com.softleader.SpringTraining.Entity.Insured;
 import tw.com.softleader.SpringTraining.Entity.Policy;
 
@@ -72,4 +73,5 @@ public class PolicyTableTest {
 //        policyRepository.save(Policy.builder()
 //                .policyNo("test").build());
     }
+
 }

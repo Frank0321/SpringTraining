@@ -1,4 +1,4 @@
-package tw.com.softleader.SpringTraining;
+package tw.com.softleader.SpringTraining.DAO;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;

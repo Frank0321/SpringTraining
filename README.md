@@ -206,3 +206,6 @@
   -  Rolled back transaction for test (回歸到測試前的資料，可以新增一筆資料測試)
   
   - [Spring @Transactional註解淺談](https://iter01.com/61414.html)
+  
+### 4.3 
+- n+1 selection : A 底下有 B，查詢 A 之後，要顯示 B，則也會查詢 B (多查詢一次)

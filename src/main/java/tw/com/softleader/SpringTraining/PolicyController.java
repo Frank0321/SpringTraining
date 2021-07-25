@@ -9,6 +9,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import tw.com.softleader.SpringTraining.DAO.PolicyRepository;
 import tw.com.softleader.SpringTraining.Entity.Policy;
 
 import javax.annotation.PostConstruct;
