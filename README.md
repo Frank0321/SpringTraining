@@ -168,3 +168,20 @@
   - [解決方法 1](https://www.itread01.com/content/1547060884.html)
   - [解決方法 2](https://blog.csdn.net/Hello_World_QWP/article/details/114923905)
   - [@Autowired 其他參數設定](http://blog.appx.tw/2017/08/21/spring-%E8%A8%BB%E8%A7%A3-%E4%B9%8B-autowired/)
+
+# CH4 
+### interlliJ 建立資料庫
+- 以 local 端為例，僅需要輸入帳密，並測試連線
+- 在資料庫右鍵 -> Database Tools -> Manage Shown Schemas ，點選要顯示的 DB
+
+### 4.1 
+- 在 policy 內新增欄位
+- 將 policy 內中的Insureds欄位前的 @JoinColumn(name = "POLICY_ID")拿掉，可以發現會多一個 Insured Entity 的產生
+  - 試玩後，記得先把 table drop 掉，以免會有其他問題發生
+
+  
+### 4.2
+- @Transactional
+  - 沒有加的時候，無法找到下一層的資料
+  - Began transaction (1)
+  -  Rolled back transaction for test (回歸到測試前的資料，可以新增一筆資料測試)
