@@ -178,10 +178,31 @@
 - 在 policy 內新增欄位
 - 將 policy 內中的Insureds欄位前的 @JoinColumn(name = "POLICY_ID")拿掉，可以發現會多一個 Insured Entity 的產生
   - 試玩後，記得先把 table drop 掉，以免會有其他問題發生
+- @OneToMany 的參數
+  - cascade : 聯級操作
+    - CascadeType.PERSIST : 在儲存時一併儲存 被參考的物件。
+    - CascadeType.MERGE : 在合併修改時一併 合併修改被參考的物件。
+    - CascadeType.REMOVE : 在移除時一併移除 被參考的物件。
+    - CascadeType.REFRESH : 在更新時一併更新 被參考的物件。
+    - CascadeType.ALL : 無論儲存、合併、 更新或移除，一併對被參考物件作出對應動作。
+ - fetch :
+   - FetchType.LAZY : 只在用到時才載入關聯的物件。
+     在查詢時，不會立刻將物件(insureds)載入
+   - FetchType.EAGER : 在查詢時立刻載入關聯的物件
+   - 如果設定成 FetchType.EAGER 則可以不用 @Transactional 但不會 Rolled back
+ - orphanRemoval
+   - 預設值為 false
+   - orphanRemoval=true : 當物件 (insured) 從 Set 裡面移除，資料庫就會移除該資料
 
+- [CascadeType 與 FetchType](https://openhome.cc/Gossip/EJB3Gossip/CascadeTypeFetchType.html)  
+- [cascade設為CascadeType.REFRESH的作用](https://matthung0807.blogspot.com/2019/05/hibernate-jpa-onetomany.html)
+- [參數FetchType.LAZY和FetchType.EAGER的差別](https://matthung0807.blogspot.com/2018/06/jpa-onetomanyfetchtypelazyfetchtypeeager.html)
+- [@OneToMany的orphanRemoval屬性](https://matthung0807.blogspot.com/2018/06/jpa-onetoone-onetomanyorphanremoval.html)
   
 ### 4.2
 - @Transactional
   - 沒有加的時候，無法找到下一層的資料
   - Began transaction (1)
   -  Rolled back transaction for test (回歸到測試前的資料，可以新增一筆資料測試)
+  
+  - [Spring @Transactional註解淺談](https://iter01.com/61414.html)
