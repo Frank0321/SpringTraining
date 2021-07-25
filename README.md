@@ -209,3 +209,6 @@
   
 ### 4.3 
 - n+1 selection : A 底下有 B，查詢 A 之後，要顯示 B，則也會查詢 B (多查詢一次)
+- 範例程式 : 將 Policy 這一個 Entity 中的 @OneToMany 裡面的 fetch 進行修改
+  - fetch = FetchType.EAGER : 查詢時就會找關聯的資料，因此就會找下一層的資料 => n+1 selection
+  - fetch = FetchType.LAZY : 需要用到的時候才會找，因此沒有要用到下一層的資料就沒有要尋找 => 沒有 n+1 selection 的問題

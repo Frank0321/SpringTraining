@@ -74,4 +74,12 @@ public class PolicyTableTest {
 //                .policyNo("test").build());
     }
 
+    @Test
+    @Transactional
+    void testNOneSelectionTest(){
+        Policy policy = policyRepository.findByPolicyNoAndEndstNo("9921ABC00001", 0);
+        assertEquals("A123456789", policy.getApplicantIdno());
+
+    }
+
 }
