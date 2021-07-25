@@ -38,6 +38,22 @@ public class PolicyTableTest {
                         .insuredLocalName("王弟弟").build())
                 .build();
         policyRepository.save(policy);
+
+        Policy policy1 = Policy.builder()
+                .policyNo("9921ABC00002")
+                .endstNo(0)
+                .applicantIdno("A111222333")
+                .applicantLocalName("王叔叔")
+                .insured(Insured.builder()
+                        .insuredIndo("A111222333")
+                        .insuredLocalName("王叔叔")
+                        .build())
+                .insured(Insured.builder()
+                        .insuredIndo("A222333555")
+                        .insuredLocalName("王姐姐")
+                        .build())
+                .build();
+        policyRepository.save(policy1);
     }
 
     @Test
@@ -53,7 +69,7 @@ public class PolicyTableTest {
         }
 
         //不會新增進去
-        policyRepository.save(Policy.builder()
-                .policyNo("test").build());
+//        policyRepository.save(Policy.builder()
+//                .policyNo("test").build());
     }
 }
