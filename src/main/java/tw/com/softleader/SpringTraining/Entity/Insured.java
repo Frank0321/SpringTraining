@@ -1,14 +1,14 @@
 package tw.com.softleader.SpringTraining.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
 @Table(name = "INSURED")
 @Builder
 @AllArgsConstructor
@@ -21,4 +21,8 @@ public class Insured {
     private String insuredIndo;
 
     private String insuredLocalName;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "INSURED_ID")
+    private Set<Item> items;
 }

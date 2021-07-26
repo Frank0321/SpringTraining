@@ -212,3 +212,17 @@
 - 範例程式 : 將 Policy 這一個 Entity 中的 @OneToMany 裡面的 fetch 進行修改
   - fetch = FetchType.EAGER : 查詢時就會找關聯的資料，因此就會找下一層的資料 => n+1 selection
   - fetch = FetchType.LAZY : 需要用到的時候才會找，因此沒有要用到下一層的資料就沒有要尋找 => 沒有 n+1 selection 的問題
+  
+- 改善 N +1 Selection
+  - policy :OneToMany : fetch = FetchType.LAZY
+  - 在 policy 的 class 加上 @NamedEntityGraph(name = "policy.insureds", attributeNodes = @NamedAttributeNode("insureds"))
+  - 在會使用到的 DAO 加上 :  @EntityGraph(value = "policy.insureds", type = EntityGraph.EntityGraphType.LOAD)
+  - 可以先把這兩個註解拿掉還原  
+  - [參考](https://www.baeldung.com/spring-data-jpa-named-entity-graphs)
+ 
+### 4.4
+- Policy -> insured -> Item ，至少中間的 insured 不能使用 @EqualsAndHashCode ，否則會發生 
+  - org.springframework.orm.jpa.JpaSystemException: collection was evicted; nested exception is org.hibernate.HibernateException: collection was evicted
+  - [使用Hibernate、JPA、Lombok遇到的有趣問題](https://codertw.com/%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80/745475/)
+  - [Lombok & Hibernate: How to Avoid Common Pitfalls](https://thorben-janssen.com/lombok-hibernate-how-to-avoid-common-pitfalls/)
+ 
