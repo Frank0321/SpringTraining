@@ -6,8 +6,8 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(exclude = {"items", "payment"})
 @ToString
 @Table(name = "INSURED")
 @Builder
