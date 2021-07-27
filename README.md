@@ -217,8 +217,11 @@
   - policy :OneToMany : fetch = FetchType.LAZY
   - 在 policy 的 class 加上 @NamedEntityGraph(name = "policy.insureds", attributeNodes = @NamedAttributeNode("insureds"))
   - 在會使用到的 DAO 加上 :  @EntityGraph(value = "policy.insureds", type = EntityGraph.EntityGraphType.LOAD)
-  - 可以先把這兩個註解拿掉還原  
-  - [參考](https://www.baeldung.com/spring-data-jpa-named-entity-graphs)
+  - 可以先把這兩個註解拿掉還原
+  - 實際上是做 1 次主檔 + 1 次副檔搜尋，但因為搜尋條件為 POLICY_ID，才導致搜尋出 n 筆資料
+  - [參考1](https://www.baeldung.com/spring-data-jpa-named-entity-graphs)
+  - [參考2](https://www.bookstack.cn/read/essential-javaee/docs-jpa-jpa-entity-graph.md)
+  - [解决JPA懒加载典型的N+1问题-注解@NamedEntityGraph](https://www.codeprj.com/blog/958c721.html)
  
 ### 4.4
 - Policy -> insured -> Item ，至少中間的 insured 不能使用 @EqualsAndHashCode ，否則會發生 
