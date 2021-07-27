@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import tw.com.softleader.SpringTraining.DAO.PolicyRepository;
 import tw.com.softleader.SpringTraining.Entity.Insured;
+import tw.com.softleader.SpringTraining.Entity.Item;
 import tw.com.softleader.SpringTraining.Entity.Policy;
 
 import java.util.List;
@@ -55,6 +56,38 @@ public class PolicyTableTest {
                         .build())
                 .build();
         policyRepository.save(policy1);
+
+        Policy policy2 = Policy.builder()
+                .policyNo("9921ABC00003")
+                .endstNo(0)
+                .applicantIdno("A111111111")
+                .applicantLocalName("王爺爺")
+                .insured(Insured.builder()
+                        .insuredIndo("A222222222")
+                        .insuredLocalName("王爸爸")
+                        .item(Item.builder()
+                                .code("cod1")
+                                .itemLocalNames("王哥哥")
+                                .build())
+                        .item(Item.builder()
+                                .code("cod2")
+                                .itemLocalNames("王弟弟")
+                                .build())
+                        .build())
+                .insured(Insured.builder()
+                        .insuredIndo("A333333333")
+                        .insuredLocalName("王媽媽")
+                        .item(Item.builder()
+                                .code("cod3")
+                                .itemLocalNames("王姊姊")
+                                .build())
+                        .item(Item.builder()
+                                .code("cod4")
+                                .itemLocalNames("王妹妹")
+                                .build())
+                        .build())
+                .build();
+        policyRepository.save(policy2);
     }
 
     @Test
@@ -77,8 +110,19 @@ public class PolicyTableTest {
     @Test
     @Transactional
     void testNOneSelectionTest(){
-        Policy policy = policyRepository.findByPolicyNoAndEndstNo("9921ABC00001", 0);
-        assertEquals("A123456789", policy.getApplicantIdno());
+        Policy policy = policyRepository.findByPolicyNoAndEndstNo("9921ABC00003", 0);
+        assertEquals("A111111111", policy.getApplicantIdno());
+
+        log.info("Now we try to get insureds");
+        Set<Insured> insureds = policy.getInsureds();
+        for (Insured insured : insureds) {
+            log.info("{}", insured);
+            log.info("Now we try to get items");
+            for (Item item : insured.getItems()){
+                log.info("{}", item);
+            }
+        }
+
 
     }
 

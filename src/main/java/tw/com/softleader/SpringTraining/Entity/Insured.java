@@ -8,7 +8,6 @@ import java.util.Set;
 @Entity
 @Data
 @EqualsAndHashCode(exclude = {"items", "payment"})
-@ToString
 @Table(name = "INSURED")
 @Builder
 @AllArgsConstructor
@@ -24,5 +23,6 @@ public class Insured {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "INSURED_ID")
+    @Singular
     private Set<Item> items;
 }
