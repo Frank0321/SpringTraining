@@ -2,6 +2,7 @@ package tw.com.softleader.SpringTraining;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class PolicyRepositoryTest {
 
     @BeforeAll
     void initAll(){
-
+        log.info("start beforeAll annotation");
         Policy policy = Policy.builder()
                 .policyNo("9921ABC00001")
                 .endstNo(0)
@@ -53,6 +54,12 @@ public class PolicyRepositoryTest {
                 .build();
         policyRepository.save(policy2);
     }
+
+    @BeforeEach
+    void beforeEachTest(){
+        log.info("start beforeEach annotation");
+    }
+
 
     @Test
     void testFindByPolicyNoAndEndstNo(){
