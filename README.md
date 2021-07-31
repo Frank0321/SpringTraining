@@ -17,7 +17,10 @@
 ### 測試方法
 - Junit 5 提供了一個 class 只初始化僅僅一次的方式 : @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 - 有 @TestInstance(TestInstance.Lifecycle.PER_CLASS) 才可以執行 @BeforeAll、@AfterAll
-
+- 補充 : BeforeAll、BeforeEarch 的差異
+  - beforeAll: 該class的所有test開始前會執行
+  - beforeEach: 每一個method前會執行
+- [Jest | 測試設置分類](https://medium.com/enjoy-life-enjoy-coding/unit-test-%E6%9B%BF%E6%B8%AC%E8%A9%A6%E8%A8%AD%E7%BD%AE%E5%88%86%E9%A1%9E-describe-%E5%8F%8A%E4%BD%9C%E7%94%A8%E5%9F%9F-scoping-2c5082266ca)
 - [Spring Boot 第一個 JUnit 測試程式](https://ithelp.ithome.com.tw/articles/10250569?sc=rss.iron)
 
 ### 問題排除
@@ -33,6 +36,18 @@
     - [error 原因](https://stackoverflow.com/questions/44588055/spring-boot-cant-save-unicode-string-in-mysql-using-spring-data-jpa)
     - [參考](https://www.jinnsblog.com/2018/01/mariadb-garbled.html)
   
+### 程式內容
+- 主要執行程式 : PolicyRepositoryTest
+  - testFindByPolicyNoAndEndstNo method (與 n+1 selection 有關，可以先不執行)
+  - testFindByApplicantIdno method
+  - testFindByApplicantLocalNameLike method
+- 相關程式 : Policy(Entity)、PolicyRepository(DAO)、application.properties
+  - Policy(Entity)
+    - 後續會介紹 : @NamedEntityGraph、@OneToMany 的內容，可以先蓋掉或是不理她
+  - PolicyRepository(DAO)
+    - @EntityGraph : 一樣也可以先不理他
+  - application.properties  
+    - 僅到連線池的設定
 
 ## CH 3
 ### log 層級
