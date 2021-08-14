@@ -184,7 +184,7 @@
   - [解決方法 2](https://blog.csdn.net/Hello_World_QWP/article/details/114923905)
   - [@Autowired 其他參數設定](http://blog.appx.tw/2017/08/21/spring-%E8%A8%BB%E8%A7%A3-%E4%B9%8B-autowired/)
 
-# CH4 
+## CH 4
 ### interlliJ 建立資料庫
 - 以 local 端為例，僅需要輸入帳密，並測試連線
 - 在資料庫右鍵 -> Database Tools -> Manage Shown Schemas ，點選要顯示的 DB
@@ -247,9 +247,40 @@
   - [Hibernate OneToMany java.lang.StackOverflowError](https://stackoverflow.com/questions/17445657/hibernate-onetomany-java-lang-stackoverflowerror)
   - [使用Hibernate、JPA、Lombok遇到的有趣問題](https://codertw.com/%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80/745475/)
   - [Lombok & Hibernate: How to Avoid Common Pitfalls](https://thorben-janssen.com/lombok-hibernate-how-to-avoid-common-pitfalls/)
-  - [test]
-  - [原本的分支]
-  - [發生衝突吧]
-  - [我是test/conflict] 
+
+## CH 5
+### 5.2
+- @Transactional : 控制事務管理，常用的參數與設定值如下 : 
+  - readOnly : 僅 true/false 設定，前事務是否為只讀事務
+    - @Trainsactional(readOnly = true) : 只讀
+    - @Trainsactional(readOnly = true) : 可以讀寫
+  - rollbackFor : 需要進行 rollback 的異常類 陣列
+    - 單一異常 : @Transactional(rollbackFor = RuntimeException.class)
+    - 多個異常 : @Transactional(rollbackFor = {RuntimeException.class, Exception.class})
+  - rollbackForClassName :需要進行 rollback 的異常類 名稱陣列，和 rollbackFor 相識，只是異常的寫法不同
+    - 單一異常 : @Transactional(rollbackForClassName = "RuntimeException")
+    - 多個異常 : @Transactional(rollbackForClassName = {"RuntimeException","Exception"})
+  - noRollbackForClassName : 不需要進行回滾的異常類 陣列
+    - 單一異常 : @Transactional(noRollbackForClassName = RuntimeException.class)
+    - 多個異常 : @Transactional(noRollbackForClassName = {RuntimeException.class, Exception.class})
+  - propagation : 事物傳播行為介紹
+    - @Transactional(propagation=Propagation.REQUIRED) ：如果有事務, 那麼加入事務, 沒有的話新建一個(預設情況下)
+    - @Transactional(propagation=Propagation.NOT_SUPPORTED) ：容器不為這個方法開啟事務
+    - @Transactional(propagation=Propagation.REQUIRES_NEW) ：不管是否存在事務,都建立一個新的事務,原來的掛起,新的執行完畢,繼續執行老的事務
+    - @Transactional(propagation=Propagation.MANDATORY) ：必須在一個已有的事務中執行,否則丟擲異常
+    - @Transactional(propagation=Propagation.NEVER) ：必須在一個沒有的事務中執行,否則丟擲異常(與Propagation.MANDATORY相反)
+    - @Transactional(propagation=Propagation.SUPPORTS) ：如果其他bean呼叫這個方法,在其他bean中宣告事務,那就用事務.如果其他bean沒有宣告事務,那就不用事務.
+    - @Transactional(propagation=Propagation.NESTED) ： 如果當前存在事務，則在巢狀事務內執行。如果當前沒有事務，則進行與PROPAGATION_REQUIRED類似的操作。
+  - isolation : 事務隔離級別
+    - @Transactional(isolation = Isolation.READ_UNCOMMITTED)：讀取未提交資料(會出現髒讀, 不可重複讀) 基本不使用
+    - @Transactional(isolation = Isolation.READ_COMMITTED)：讀取已提交資料(會出現不可重複讀和幻讀)
+    - @Transactional(isolation = Isolation.REPEATABLE_READ)：可重複讀(會出現幻讀)
+    - @Transactional(isolation = Isolation.SERIALIZABLE)：序列化
+  - timeout : 設定事務的超時秒數， -1 表示永不超時
+- @Transactional 只能使用在 public 方法上
   
+- [Spring @Transactional註解淺談](https://iter01.com/61414.html)  
+## CH 6
+  
+## CH 7
  
