@@ -91,7 +91,7 @@ public class PolicyController {
         Specification<Policy> newSpec = (Specification<Policy>) (root, criteriaQuery, criteriaBuilder) -> {
             Subquery<Long> subQuery = criteriaQuery.subquery(Long.class);
             Root<Policy> subQueryRoot = subQuery.from(Policy.class);
-            //查詢 ensarNo 最大值
+            //查詢 endstNo 最大值
             subQuery.select(criteriaBuilder.max(subQueryRoot.get("endstNo")));
             // where 條件
             subQuery.where(criteriaBuilder.equal(root.get("policyNo"), subQueryRoot.get("policyNo")));
